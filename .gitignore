@@ -1,0 +1,61 @@
+# --- Python / FastAPI ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+build/
+dist/
+pip-wheel-metadata/
+.env
+.venv
+venv/
+backend/.venv/
+backend/__pycache__/
+
+# --- Virtual environments / IDEs ---
+*.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*.bak
+
+# --- Node / Next.js frontend ---
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env.local
+frontend/.vercel
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+pnpm-lock.yaml
+*.log
+
+# --- OS / Editor junk ---
+Thumbs.db
+.DS_Store
+*.tmp
+*.temp
+
+# --- Test / coverage ---
+.coverage
+htmlcov/
+pytest_cache/
+.cache/
+*.log
+*.sqlite3
+
+# --- Supabase / local data ---
+supabase/.temp/
+supabase/.branches/
+supabase/.env
+
+# --- Misc ---
+*.zip
+*.tar.gz
+*.tgz
