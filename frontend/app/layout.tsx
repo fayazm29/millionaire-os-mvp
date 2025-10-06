@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <a href="/wealth" className="hover:underline">Wealth</a>
               <a href="/energy" className="hover:underline">Energy</a>
               <a href="/coach" className="hover:underline">AI Coach</a>
-              <a href="/settings" className="hover:underline">Settings</a>
+              {process.env.NODE_ENV !== "production" && (<a href="/settings" className="hover:underline">Settings</a>)}
             </nav>
           </div>
         </header>
