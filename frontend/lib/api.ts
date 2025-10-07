@@ -30,3 +30,16 @@ export async function askCoach(
 
   return res.json();
 }
+export async function getToday() {
+  // placeholder dashboard summary
+  return { focus: "Deep work on business systems" };
+}
+
+export async function getStats() {
+  // placeholder stats summary
+  return {
+    fasting_hours_today: 18,
+    saved_this_week: 100,
+    streaks: { deepwork: 3, fasting: 2, finance: 1 },
+  };
+}
