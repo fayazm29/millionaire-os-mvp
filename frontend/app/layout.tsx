@@ -8,7 +8,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="container py-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="h-6 w-6 rounded-full bg-primary" />
-              <span className="font-semibold">ONE REFRESH</span>
+              <span className="font-semibold">Millionaire OS</span>
               <span className="text-muted hidden md:inline">· AI-Powered Website Revitalisation</span>
             </div>
             <nav className="flex gap-3 text-sm">
@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </header>
         <main className="container py-8">{children}</main>
         <footer className="container py-10 text-center text-sm text-muted">
-          © 2025 One Refresh · Millionaire OS
+          © 2025 Millionaire OS
         </footer>
       </body>
     </html>
