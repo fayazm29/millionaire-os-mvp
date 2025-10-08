@@ -1,10 +1,19 @@
 import os
+import logging
+from datetime import datetime
 from fastapi import FastAPI, Body
 from fastapi.middleware.cors import CORSMiddleware
 from openai import OpenAI
 
 # --- Initialize app ---
-app = FastAPI(title="Millionaire OS Backend", version="1.1")
+app = FastAPI(title="Millionaire OS Backend", version="1.2")
+
+# --- Logging setup ---
+logging.basicConfig(
+    level=logging.INFO,
+    format="[%(asctime)s] %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S"
+)
 
 # --- CORS setup ---
 app.add_middleware(
@@ -32,8 +41,20 @@ def root():
 
 @app.post("/coach")
 def coach(prompt: dict = Body(...)):
+    """
+    AI Success Coach endpoint
+    Example payload:
+      {
+        "user_name": "Fayaz",
+        "prompt": "How can I build a better morning routine?"
+      }
+    """
     user_name = prompt.get("user_name", "Friend")
-    q = prompt.get("prompt", "")
+    q = prompt.get("prompt", "").strip()
+
+    # Log the incoming request
+    short_q = (q[:70] + "...") if len(q) > 70 else q
+    logging.info(f"🧠 {user_name} asked: {short_q}")
 
     system_message = (
         "You are an AI Success Coach from Millionaire OS. "
@@ -46,7 +67,7 @@ def coach(prompt: dict = Body(...)):
 
     try:
         completion = client.chat.completions.create(
-            model="gpt-4o-mini",  # ✅ use this instead of gpt-5
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": system_message},
                 {
@@ -60,17 +81,17 @@ def coach(prompt: dict = Body(...)):
             ],
             max_completion_tokens=250,
         )
+
         reply = completion.choices[0].message.content if completion.choices else "(no reply returned)"
+        reply = reply.strip()
 
-        print("✅ AI Coach reply:", reply)  # ✅ local debug print
+        token_count = len(reply.split())
+        logging.info(f"✅ AI Coach reply sent to {user_name} ({token_count} words)")
 
-        return {
-            "user": user_name,
-            "reply": reply.strip(),
-        }
+        return {"user": user_name, "reply": reply}
 
     except Exception as e:
-        print("❌ AI Coach error:", str(e))  # ✅ debug visible in terminal
+        logging.error(f"❌ AI Coach error for {user_name}: {str(e)}")
         return {
             "error": "Coach unavailable right now. Please try again shortly.",
             "details": str(e)[:200],
